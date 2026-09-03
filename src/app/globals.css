@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-exo2: 'Exo 2', ui-sans-serif, system-ui, sans-serif;
+  --font-raleway: 'Raleway', ui-sans-serif, system-ui, sans-serif;
+  --font-montserrat: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-raleway); overflow-x: hidden; }
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #F5F5F0; }
+::-webkit-scrollbar-thumb { background: #C9A86A; border-radius: 3px; }
+
+/* Ken Burns on hero slides */
+.ken-1 { animation: kenBurns1 14s ease-in-out infinite alternate; }
+.ken-2 { animation: kenBurns2 14s ease-in-out infinite alternate; }
+.ken-3 { animation: kenBurns3 14s ease-in-out infinite alternate; }
+
+@keyframes kenBurns1 {
+  0%   { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.12) translate(-2%, -1%); }
+}
+@keyframes kenBurns2 {
+  0%   { transform: scale(1.25) translate(0, 0); }
+  100% { transform: scale(1.05) translate(2%, -2%); }
+}
+@keyframes kenBurns3 {
+  0%   { transform: scale(1) translate(1%, 0); }
+  100% { transform: scale(1.1) translate(-1%, -2%); }
+}
+
+/* WhatsApp pulse */
+@keyframes pulseWa {
+  0%, 100% { box-shadow: 0 4px 15px rgba(37,211,102,0.4); }
+  50%       { box-shadow: 0 8px 30px rgba(37,211,102,0.7); transform: scale(1.06); }
+}
+.wa-pulse { animation: pulseWa 2.5s ease-in-out infinite; }
+
+/* Arrow bounce */
+@keyframes bounceArrow {
+  0%, 100% { transform: translateY(0) rotate(45deg); }
+  50%       { transform: translateY(8px) rotate(45deg); }
+}
+.bounce-arrow { animation: bounceArrow 1.5s ease-in-out infinite; }
+
+/* Modal backdrop */
+.modal-backdrop { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+
+/* Gradient divider */
+.gold-divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #C9A86A, transparent);
+}
+
+/* ── Performance & Accessibility ── */
+/* Reduce repaints for animated elements */
+.ken-1, .ken-2, .ken-3 { will-change: transform; }
+.wa-pulse { will-change: box-shadow, transform; }
+
+/* Respect OS reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .ken-1, .ken-2, .ken-3 { animation: none !important; }
+  .wa-pulse { animation: none !important; }
+  .bounce-arrow { animation: none !important; }
+  * { transition-duration: 0.01ms !important; }
+}
+
+/* Optimize font rendering */
+body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+/* Line-clamp utility */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
